@@ -1,0 +1,16 @@
+database:
+  driver: sqlite
+  path: habit_tracker.db
+
+# postgresql
+# database:
+#   driver: postgres
+#   host: localhost
+#   port: 5432
+#   user: user
+#   password: secret
+#   name: habit_tracker
+
+server:
+  port: 8080
+  host: localhost
