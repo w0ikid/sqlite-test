@@ -15,8 +15,12 @@ rollback-postgres:
 
 migrate-sqlite:
 	@echo "Running SQLite migrations..."
-	migrate -path migrations/sqlite -database "sqlite3://$(SQLITE_PATH)" up
+	migrate -path migrations/sqlite -database "sqlite://$(SQLITE_PATH)" up
 
 rollback-sqlite:
 	@echo "Rolling back SQLite migrations..."
-	migrate -path migrations/sqlite -database "sqlite3://$(SQLITE_PATH)" down 1
+	migrate -path migrations/sqlite -database "sqlite://$(SQLITE_PATH)" down 1
+
+run:
+	@echo "Running application..."
+	@go run cmd/app/main.go

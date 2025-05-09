@@ -32,7 +32,7 @@ type DatabaseConfig struct {
 	User     string `yaml:"user,omitempty"`
 	Password string `yaml:"password,omitempty"`
 	Name     string `yaml:"name,omitempty"`
-	SSLMODE string `yaml:sslmode,omitempty`
+	SSLMODE string `yaml:"sslmode,omitempty"`
 }
 
 type ServerConfig struct {
