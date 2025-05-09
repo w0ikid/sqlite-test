@@ -1,15 +1,21 @@
-database:
-  driver: sqlite
-  path: habit_tracker.db
+# Используйте один из блоков ниже
+# Раскомментируйте нужную конфигурацию и закомментируйте другую
+# Не забудьте про .env файл
+
+# sqlite
+# database:
+#   driver: ${SQLITE_DRIVER}
+#   path: ${SQLITE_PATH}
 
 # postgresql
-# database:
-#   driver: postgres
-#   host: localhost
-#   port: 5432
-#   user: user
-#   password: secret
-#   name: habit_tracker
+database:
+  driver: ${PG_DRIVER}
+  host: ${PG_HOST}
+  port: ${PG_PORT}
+  user: ${PG_USER}
+  password: ${PG_PASSWORD}
+  name: ${PG_DB}
+  sslmode: ${PG_SSLMODE}
 
 server:
   port: 8080
