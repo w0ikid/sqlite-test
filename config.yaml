@@ -3,20 +3,21 @@
 # Не забудьте про .env файл
 
 # sqlite
-database:
-  driver: ${SQLITE_DRIVER}
-  path: ${SQLITE_PATH}
+# database:
+#   driver: ${SQLITE_DRIVER}
+#   path: ${SQLITE_PATH}
 
 # postgresql
-# database:
-#   driver: ${PG_DRIVER}
-#   host: ${PG_HOST}
-#   port: ${PG_PORT}
-#   user: ${PG_USER}
-#   password: ${PG_PASSWORD}
-#   name: ${PG_DB}
-#   sslmode: ${PG_SSLMODE}
+database:
+  driver: ${PG_DRIVER}
+  host: ${PG_HOST}
+  port: ${PG_PORT}
+  user: ${PG_USER}
+  password: ${PG_PASSWORD}
+  name: ${PG_DB}
+  sslmode: ${PG_SSLMODE}
 
 server:
-  port: 8080
-  host: localhost
+  address: "localhost:8080"
+  timeout: 4s
+  idle_timeout: 60s

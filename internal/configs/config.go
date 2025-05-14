@@ -3,6 +3,7 @@ package configs
 import (
 	"os"
 	"strings"
+	"time"
 
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/spf13/viper"
@@ -23,23 +24,23 @@ type Config struct {
 }
 
 type DatabaseConfig struct {
-	Driver   string `yaml:"driver"`
+	Driver string `yaml:"driver"`
 	// sqlite
-	Path     string `yaml:"path,omitempty"`
+	Path string `yaml:"path,omitempty"`
 	// postgres
 	Host     string `yaml:"host,omitempty"`
-	Port     string    `yaml:"port,omitempty"`
+	Port     string `yaml:"port,omitempty"`
 	User     string `yaml:"user,omitempty"`
 	Password string `yaml:"password,omitempty"`
 	Name     string `yaml:"name,omitempty"`
-	SSLMODE string `yaml:"sslmode,omitempty"`
+	SSLMODE  string `yaml:"sslmode,omitempty"`
 }
 
 type ServerConfig struct {
-	Port int    `yaml:"port"`
-	Host string `yaml:"host"`
+	Address     string        `yaml:"server" env-default:"localhost:8080"`
+	Timeout     time.Duration `yaml:"timeout" env-default:"10s"`
+	IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
 }
-
 
 // ------ easy connect ---------
 func (d DatabaseConfig) DriverName() string {
@@ -64,7 +65,7 @@ func (d DatabaseConfig) DSN() string {
 
 // --------- CleanENV ------------
 
-type CleanenvLoader struct {}
+type CleanenvLoader struct{}
 
 func (l CleanenvLoader) Load(path string, cfg any) error {
 	content, err := os.ReadFile(path)
@@ -73,7 +74,7 @@ func (l CleanenvLoader) Load(path string, cfg any) error {
 	}
 
 	expanded := os.ExpandEnv(string(content))
-	
+
 	tmpFile, err := os.CreateTemp("", "config-*.yaml")
 	if err != nil {
 		return err
@@ -90,7 +91,7 @@ func (l CleanenvLoader) Load(path string, cfg any) error {
 
 // -------- Viper ---------
 
-type ViperLoader struct {}
+type ViperLoader struct{}
 
 func (l ViperLoader) Load(path string, cfg any) error {
 	content, err := os.ReadFile(path)
@@ -99,7 +100,7 @@ func (l ViperLoader) Load(path string, cfg any) error {
 	}
 
 	expanded := os.ExpandEnv(string(content))
-	
+
 	v := viper.New()
 
 	v.SetConfigFile(path)
